@@ -11,14 +11,24 @@ def send_data():
     con = psycopg2.connect("host='localhost' dbname='Avocado' user='postgres' password='postgres'")  
     cur = con.cursor()
     cur.execute("SELECT * FROM guacamolecountries")
-    columns = ('Countries', 'Produce')
+    columns = ('Country', 'Produce')
     GuacamoleData = []
 # Create a List of Dictionaries from the Data
 #Code Reference: https://www.peterbe.com/plog/from-postgres-to-json-strings
     for row in cur.fetchall():
         GuacamoleData.append(dict(zip(columns, row)))
-    print (json.dumps(GuacamoleData, indent=2))
-    return render_template("index.html", GuacamoleData=GuacamoleData)
+    # print (json.dumps(GuacamoleData, indent=2))
+    print (GuacamoleData[0]['Country'])
+    #To Process A String As if it Were a List Use eval()
+    ProduceList = eval(GuacamoleData[0]['Produce'])
+    print(ProduceList[1])
+
+#Get Coordinates of Countries In GuacamoleData
+    with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
+        CountCoord=CountCoordjson.read()
+    CountCoords = json.loads(CountCoord)
+    # print (CountCoords)
+    return render_template("index.html", GuacamoleData=GuacamoleData, CountCoords=CountCoords)
 
 if __name__ == "__main__":
     app.run()
