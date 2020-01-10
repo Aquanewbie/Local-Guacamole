@@ -24,5 +24,5 @@ print(ProduceList[1])
 #Get Coordinates of Countries In GuacamoleData
 with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
     CountCoord=CountCoordjson.read()
-CountCoords = json.loads(CountCoord)
+# CountCoords = json.loads(CountCoord)
     # print (CountCoords)

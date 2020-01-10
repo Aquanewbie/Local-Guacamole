@@ -5,6 +5,7 @@ var map = L.map("map", {
 });
 
 // Adding tile layer
+
 L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
@@ -12,43 +13,13 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
   accessToken: API_KEY
 }).addTo(map);
 
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
+const guac = document.getElementById('guac')
 
-// L.marker([51.5, -0.09]).addTo(map)
-//     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-//     .openPopup();
+console.log(guac)
 
-
-
-// If data.beta.nyc is down comment out this link
-// var link = "http://data.beta.nyc//dataset/0ff93d2d-90ba-457c-9f7e-39e47bf2ac5f/resource/" +
-// "35dd04fb-81b3-479b-a074-a27a37888ce7/download/d085e2f8d0b54d4590b1e7d1f35594c1pediacitiesnycneighborhoods.geojson";
-
-// Uncomment this link local geojson for when data.beta.nyc is down
-
-
-// Function that will determine the color of a neighborhood based on the borough it belongs to
-// function chooseColor(borough) {
-//   switch (borough) {
-//   case "Brooklyn":
-//     return "yellow";
-//   case "Bronx":
-//     return "red";
-//   case "Manhattan":
-//     return "orange";
-//   case "Queens":
-//     return "green";
-//   case "Staten Island":
-//     return "purple";
-//   default:
-//     return "black";
-//   }
-// }
-var link = CountCoords;
 // Grabbing our GeoJSON data..
-d3.json(link, function(data) {
+// var link = {CountCoords};
+d3.json({CountCoord}, function(data) {
   // Creating a geoJSON layer with the retrieved data
   L.geoJson(data, {
     // Style each feature (in this case a neighborhood)
