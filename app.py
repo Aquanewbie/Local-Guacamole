@@ -3,8 +3,10 @@ import sys
 import json
 from  flask import Flask,render_template
 from flask import jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def send_data():
@@ -29,6 +31,8 @@ def send_data():
     CountCoords = json.loads(CountCoord)
     # print (CountCoords)
     return render_template("index.html", GuacamoleData=GuacamoleData, CountCoords=CountCoords)
+
+response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict")
 
 if __name__ == "__main__":
     app.run()
