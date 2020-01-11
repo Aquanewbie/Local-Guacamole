@@ -5,14 +5,14 @@ from  flask import Flask,render_template
 from flask import jsonify
 from flask_cors import CORS
 import GuacVis
-from GuacVis import GuacamoleData, CountCoord
+from GuacVis import CountryList, ProduceDict, GuacamoleData, CountCoord
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
 def rendervis():
-    return render_template("index.html", GuacamoleData=GuacamoleData, CountCoord=CountCoord)
+    return render_template("index.html", GuacamoleData=GuacamoleData, CountCoord=CountCoord, CountryList=CountryList, ProduceDict=ProduceDict)
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
