@@ -14,7 +14,6 @@ GuacamoleData = []
 for row in cur.fetchall():
      GuacamoleData.append(dict(zip(columns, row)))
     # print (json.dumps(GuacamoleData, indent=2))
-GuacamoleData
 CountryList = []
 ProduceDict = []
 
@@ -24,11 +23,14 @@ for i in range(0,len(GuacamoleData)):
     #Dictionary of Countries' Produce
     #To Process A String As if it Were a List Use eval()
     ProduceDict.append({GuacamoleData[i]['Country']:eval(GuacamoleData[i]['Produce'])})
-print (CountryList)
-print (ProduceDict)
+# print (CountryList)
+# print (ProduceDict)
 
-# Get Coordinates of Countries In GuacamoleData
+#Get Coordinates of Countries In GuacamoleData
 with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
-    CountCoord=CountCoordjson.read()
-CountCoord = json.loads(CountCoord)
-print (CountCoord)
+    CountCoord=eval(CountCoordjson.read())
+
+
+# import geojson
+# with open('Coord_json/countries.geo.json') as f:
+#     CountCoord = geojson.load(f)

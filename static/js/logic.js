@@ -33,11 +33,22 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 const GuacamoleData = document.getElementById('GuacamoleData')
 console.log(GuacamoleData)
-const CountCoord = document.getElementById('CountCoord')
-console.log(CountCoord)
+const CountCoords = document.getElementById('CountCoord')
+console.log(CountCoords)
 const CountryList = document.getElementById('CountryList')
 console.log(CountryList)
 const ProduceDict = document.getElementById('ProduceDict')
 console.log(ProduceDict)
 
-L.geoJSON(CountCoord, {}).addTo(map);
+function style(feature) {
+  return {
+      fillColor: getColor(feature.properties.density),
+      weight: 2,
+      opacity: 1,
+      color: 'white',
+      dashArray: '3',
+      fillOpacity: 0.7
+  };
+}
+
+L.geoJson(CountCoords, {style: style}).addTo(map);
