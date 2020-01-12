@@ -32,14 +32,58 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 
 const GuacamoleData = document.getElementById('GuacamoleData')
-console.log(GuacamoleData)
+// console.log(GuacamoleData)
 const CountCoords = document.getElementById('CountCoord')
-console.log(CountCoords)
+// console.log(CountCoords)
 const CountryList = document.getElementById('CountryList')
-console.log(CountryList)
+// console.log(CountryList)
 const ProduceDict = document.getElementById('ProduceDict')
-console.log(ProduceDict)
+// console.log(ProduceDict)
+const CompositeDict = document.getElementById('CompositeDict')
+// console.log(CompositeDict)
+const CoordDict = document.getElementById('CoordDict')
+// console.log(CompositeDict)
 
+// console.log(CoordDict[0].Argentina);
+
+// var polycoords = CoordDict[0].Argentina;
+// var poly = L.polygon(polycoords).addTo(map);
+
+
+console.log(CoordDict);
+// Object.entries(CoordDict).map(([key, value]) => [key, value]);
+// console.log(CoordDict.Argentina);
+// console.log(Object.entries('foo'))
+var Keys = [];
+// Object.keys(CoordDict).map(function(key, index) {
+//   myObject[key] *= 2;
+// });
+
+Object.keys(CoordDict).map(function(key, index) {
+  Keys.push(key, index);
+});
+console.log(Keys)
+// Mapping over an array of objects
+// var CoordJSDictionary = CoordDict;
+
+// var Coordinates = CoordJSDictionary.map(function(CoordJSDictionary) {
+// return CoordJSDictionary[0].Argentina;
+// });
+// console.log(Coordinates);
+
+// CoordDict.forEach(function(CoordDict) {
+//   console.log(`${CoordDict.name}: ${CoordDict.age}`);
+// });
+
+// let CoordHelp = Object.fromEntries(
+//   Object.entries(CoordDict[0]).map(([key, value]) => [key, value]);
+
+// console.log(CoordHelp.Argentina);
+
+
+// for (i=0; i <= CoordDict; i++) {
+//   Coord
+// }
 function style(feature) {
   return {
       fillColor: getColor(feature.properties.density),
@@ -51,4 +95,5 @@ function style(feature) {
   };
 }
 
-L.geoJson(CountCoords, {style: style}).addTo(map);
+
+// L.geoJson(CompositeDict, {style: style}).addTo(map);
