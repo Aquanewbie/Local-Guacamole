@@ -1,5 +1,4 @@
 import psycopg2
-import sys
 import json
 
 
@@ -8,18 +7,16 @@ cur = con.cursor()
 cur.execute("SELECT * FROM guacamolecountries")
 columns = ('Country', 'Produce')
 
-GuacamoleData = []
 # Create a List of Dictionaries from the Data
 #Code Reference: https://www.peterbe.com/plog/from-postgres-to-json-strings
+GuacamoleData = []
 for row in cur.fetchall():
      GuacamoleData.append(dict(zip(columns, row)))
-# print (json.dumps(GuacamoleData, indent=2))
-# GuacamoleData
+print (json.dumps(GuacamoleData, indent=2))
+GuacamoleData
 CountryList = []
 ProduceDict = []
 CoordDict = []
-#Final Object******
-CompositeDict = []
 
 for i in range(0,len(GuacamoleData)):
     #List of Countries
@@ -27,8 +24,6 @@ for i in range(0,len(GuacamoleData)):
     #Dictionary of Countries' Produce
     #To Process A String As if it Were a List Use eval()
     ProduceDict.append({GuacamoleData[i]['Country']:eval(GuacamoleData[i]['Produce'])})
-# print (CountryList)
-# print (ProduceDict)
 
 # Get Coordinates of Countries In GuacamoleData
 with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
@@ -38,14 +33,21 @@ with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
 CountCoordList=[]
 for c in CountCoord['features']:
     CountCoordList.append(c['properties']['name'])
+CountCoordList
 
 # A List of Countries Growing Avocados and their Coordinates
 CoordDict = []
+CoordDictCountries = []
 for i in range(len(CountCoordList)):
+    #Nested For Loop For List with Different Length
     for x in range(len(CountryList)):
         if CountCoordList[i] == CountryList[x]:
             CoordDict.append({CountryList[x]:CountCoord['features'][i]['geometry']['coordinates']})
-#Create a Composite Dict ******
-# CompositeDict=[]
-# for i in range(0,len(CountryList)):
-#     CompositeDict.append([{'Country':CountryList[i]},{'Produce':ProduceDict[i]}, {'Coordinates':CoordDict[i]}])
+            CoordDictCountries.append(CountryList[x])
+
+#Create a Composite Dict
+CompositeDict=[]
+for i in range(0,len(CountryList)):
+    CompositeDict.append({'Country':CountryList[i],'Produce':ProduceDict[i][CountryList[i]], 'Coordinates':CoordDict[i][CoordDictCountries[i]]})
+CompositeDict = json.dumps(CompositeDict)
+
