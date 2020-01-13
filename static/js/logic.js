@@ -14,8 +14,6 @@ const CompositeDict = document.getElementById('CompositeDict').getAttribute('val
 
 var CompositeDict_js = JSON.parse(CompositeDict);
 console.log(CompositeDict_js);
-// const CoordDict = document.getElementById('CoordDict')
-// console.log(CompositeDict)
 
 // Create empty arrays to store necessary values for upcoming plots
 var Country = [];
@@ -50,15 +48,16 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 var marker = L.marker([51.5, -0.09]).addTo(map);
 
-// var indexworking = [2,3,4,5,6,8,9,10,12,12,13,14,15,16,17,18,19,21,23,24,25,26,27,29,30,31,32,33,34,35,36,38,39,41,42,43,44,45,46,47,48,49,52,53,54];
-var indexworking = [2,3,6,8,9]
-  // ,10,12,12,13,14,15,16,17,18,19,21,23,24,25,26,27,29,30,31,32,33,34,35,36,38,39,41,42,43,44,45,46,47,48,49,52,53,54];
+var indexworking = [2,3,4,5,8,9,10,12,12,13,14,15,16,17,18,19,21,23,24,25,26,27,29,30,31,32,33,34,35,36,38,39,41,42,43,44,45,46,47,48,49,52,53,54];
+// console.log(states)
+
+console.log(indexworking.length)
 var indexnotworking = [0,1,6,7,20,22,28,37,40,50,51,4,5];
 
-var states = [];
+var Countrypoly = [];
 var i;
-for (i = 0; i <= indexworking.length; i++) {
-  states.push({
+for (i = 0; i < indexworking.length; i++) {
+    Countrypoly.push({
     "type": "Feature",
     "properties": {"produce": Country[indexworking[i]], "country": Country[indexworking[i]]},
     "geometry": {
@@ -68,11 +67,10 @@ for (i = 0; i <= indexworking.length; i++) {
 }
 
 var imageurl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWfN5Vgv6tZ_gC0bLC0lgbqjHvdj7sT7Rvj0SGy34w8tKdaue2bw&s"
-L.geoJSON(states, {
+L.geoJSON(Countrypoly, {
   style: function(feature) {
       switch (feature.properties.produce) {
-          case "['Avocados', 'Cilantro', 'Garlic', 'Limes', 'Onions', 'Tomatoes']": return {color: "#ff0000"};
-          case 'Democrat':   return {color: "#0000ff"};
+          case ['Avocados', 'Cilantro', 'Garlic', 'Limes', 'Onions', 'Tomatoes']: return {color: "#ff0000"};
       }
   }
 }).addTo(map);
