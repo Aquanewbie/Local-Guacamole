@@ -42,9 +42,9 @@ var map = L.map("map", {
   maxZoom: 5
 });
 
-// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
 // var Stamen_Watercolor = L.tileLayer.wms('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
 // 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -55,19 +55,14 @@ var map = L.map("map", {
 //     opacity: 0.5
 // }).addTo(map);
 
-var CartoDB_DarkMatter = L.tileLayer.wms('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-    maxZoom: 19,
-    opacity: 0.5
-}).addTo(map);
-
-// var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-// 	maxZoom: 19,
-// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+// var CartoDB_DarkMatter = L.tileLayer.wms('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+// 	subdomains: 'abcd',
+//     maxZoom: 19,
+//     opacity: 0.5
 // }).addTo(map);
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
+
 
 
 var indexworking = [2,3,4,5,6,9,10,11,12,13,14,15,16,17,18,19,20,22,23,25,26,27,28,30,31,32,33,34,35,36,38,39,40,42,43,44,45,46,47,48,49,50,53,54]
@@ -109,10 +104,24 @@ for (i = 0; i < Coordinatesnotworking.length; i++) {
         "coordinates": Coordinatesnotworking[i]}
     })};
 
-    var layer = new L.geoJSON(Countrypoly, {
+
+// create a marker style
+var logoMarkerStyle = L.Icon.extend({
+    options: {
+    iconSize: [85, 90],
+    iconAnchor: [38, 86],
+    popupAnchor: [0, -80]
+}
+});
+
+
+    var Guacamolemap = new L.geoJSON(Countrypoly, {
     style: function(feature) {
         switch (feature.properties.guacamole) {
-            case 'Yes': return {color: "#ff0000"}}},
+            case 'Yes': return {color: "#2c4817", weight:1, opacity:.90};
+            break;
+            case 'No': return {color: "#ffd700", weight:1, opacity:.90}}},
+    
     onEachFeature: function (feature, layer) {
       layer.on('mouseover', function () {
         this.setStyle({
@@ -124,102 +133,18 @@ for (i = 0; i < Coordinatesnotworking.length; i++) {
           'weight': '1'
         });
       });
-      layer.on('click', function onMapClick(feature) {
-        // Let's say you've got a property called url in your geojsonfeature:
-        popup
-        .setLatLng(feature.latlng)
-        .setContent(feature.country)
-        .openOn(map);
-      });
-      
     }
-  }).addTo(map);
-
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-// polygon.bindPopup("I am a polygon." {feature.properties.produce});
-
-var popup = L.popup()
-    .setLatLng([51.5, -0.09])
-    .setContent("I am a standalone popup.")
-    .openOn(map);
-// Alert________________________________________________
-// function onMapClick(e) {
-//   alert("You clicked the map at " + e.latlng);
-//   }
-  
-// mymap.on('click', onMapClick);
-
-// var popup = L.popup();
-// Popup________________________________________________
-// function onMapClick(e) {
-//     popup
-//         .setLatLng(e.latlng)
-//         .setContent("You clicked the map at " + e.latlng.toString())
-//         .openOn(map);
-// }
-
-map.on('click', onMapClick);
-
-var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-        labels = [];
-
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < 2; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
-
-    return div;
-};
-
-legend.addTo(map);
-
-
-// L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-//   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-//   maxZoom: 18,
-//   id: "mapbox.streets",
-//   accessToken: API_KEY
-// }).addTo(map);
-
-
-
-
-
-
-// var poly = L.polygon(polycoords).addTo(map);
-
-
-function style(feature) {
-  return {
-      fillColor: getColor(feature.properties.density),
-      weight: 2,
-      opacity: 1,
-      color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7
-  };
-}
-// Make the Country highlighted visually when they are hovered with a mouse
-function highlightFeature(e) {
-  var layer = e.target;
-
-  layer.setStyle({
-      weight: 5,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
   });
 
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
-  }
-}
+Guacamolemap.addTo(map);
 
-// L.geoJson(CompositeDict, {style: style}).addTo(map);
+// var indexworking = [2,3,4,5,6,9,10,11,12,13,14,15,16,17,18,19,20,22,23,25,26,27,28,30,31,32,33,34,35,36,38,39,40,42,43,44,45,46,47,48,49,50,53,54]
+// // console.log(Coordinates[i][0][0][1], Coordinates[i][0][0][0])
+// for (i = 0; i < indexworking.length; i++) {
+//     var marker = L.marker(Coordinates[indexworking[i]][0][0][1], Coordinates[indexworking[i]][0][0][0]).addTo(map);
+//     marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()};
+
+var marker = L.marker([ -34.603722, -58.381592]).addTo(map);
+marker.bindPopup("Argentina").openPopup();
+
+
