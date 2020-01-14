@@ -1,1 +1,39 @@
 #map { height: 180px; }
+
+.jumbobox {
+    min-height: 80px;
+    font-family: 'Lobster', cursive;
+    font-weight: bold;
+    font-size: 72px;
+    text-align: center;
+    color: #bdb76b;
+    background: #2c4817;
+  }
+  
+  .nopadding {
+     padding: 0 !important;
+     margin: 0 !important;
+  }
+  
+  .box {
+     padding: 5px;
+     margin: 5px;
+     min-height: 80px;
+     font-family: 'ABeeZee', sans-serif;
+     font-size: 12px;
+     text-align: justify;
+     color: #bdb76b;
+     background: #2c4817;
+  }
+  
+  .panel {
+     padding: 5px;
+     margin: 5x;
+     min-height: 20px;
+     font-family: 'ABeeZee', sans-serif;
+     font-size: 18px;
+     font-weight: bold;
+     text-align: center;
+     color: #bdb76b;
+     background: #2b1700;
+  }

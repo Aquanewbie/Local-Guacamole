@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Avocado</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    
+
+  </head>
+  <body>
+
+    <!-- map div -->
+    <!-- <div>{{CountCoords}}</div> -->
+    <!-- Store Variables Here: -->
+    <div id="CompositeDict" value='{{ CompositeDict }}'></div>
+    <!-- <div id="GuacamoleData" value='{{ GuacamoleData }}'></div>
+    <div id="CountryList" value='{{ CountryList }}'></div>
+    <div id="ProduceDict" value='{{ ProduceDict }}'></div>
+    <div id="CountCoord" value='{{ CountCoord }}'></div>
+    <div id="CoordDict" value='{{ CoordDict }}'></div> -->
+    <!-- Function Capturing Composite Dict and Plotting Coordinates -->
+    <!-- <script type="text/javascript">thisisit= PolygonCoords('{{CompositeDict}}')</script> -->
+    
+
+
+    <div id="map" style="height: 80vh;"></div>
+
+    <img src="https://avatars3.githubusercontent.com/u/8835908?s=88&v=4">
+      <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- API key -->
+    
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
+
+
+  </body>
+</html>
