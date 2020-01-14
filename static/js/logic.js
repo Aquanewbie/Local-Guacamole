@@ -1,16 +1,7 @@
 document.cookie = 'cross-site-cookie=bar; SameSite=None';
 
-//Variables From Python 
-// const GuacamoleData = document.getElementById('GuacamoleData').value
-// console.log(GuacamoleData)
-const CountCoord = document.getElementById('CountCoord').getAttribute('value');
-// console.log(CountCoord)
-const CountryList = document.getElementById('CountryList').getAttribute('value');
-// console.log(CountryList)
-const ProduceDict = document.getElementById('ProduceDict').getAttribute('value');
-// console.log(ProduceDict)
+//Variables from Python set to Value in HTML
 const CompositeDict = document.getElementById('CompositeDict').getAttribute('value');
-// String.raw(CompositeDict)
 
 var CompositeDict_js = JSON.parse(CompositeDict);
 console.log(CompositeDict_js);
@@ -19,6 +10,7 @@ console.log(CompositeDict_js);
 var Country = [];
 var Produce = [];
 var Coordinates = [];
+var Guacamole = [];
 // Iterate through CompositeDict_js and push all the values into their respective arrays
 CompositeDict_js.forEach((data) => {
     Object.entries(data).forEach(([key, value]) => {
@@ -31,8 +23,16 @@ CompositeDict_js.forEach((data) => {
         else if (key === "Coordinates") {
             Coordinates.push(value);
         }
+        else if (key === "Guacamole") {
+            Guacamole.push(value);
+        }
     });
 });
+console.log(Country)
+console.log(Produce)
+console.log(Coordinates)
+console.log(Guacamole)
+console.log(Country[52])
 
 // Creating map object
 var map = L.map("map", {
@@ -48,15 +48,16 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 var marker = L.marker([51.5, -0.09]).addTo(map);
 
-var indexworking = [2,3,4,5,8,9,10,12,12,13,14,15,16,17,18,19,21,23,24,25,26,27,29,30,31,32,33,34,35,36,38,39,41,42,43,44,45,46,47,48,49,52,53,54];
-var indexnotworking = [0,1,6,7,20,22,28,37,40,50,51,4,5];
+// var indexworking = [2,3,4,5,8,9,10,12,13,14,15,16,17,18,19,21,23,24,25,26,27,29,30,31,32,33,34,35,36,38,39,41,42,43,44,45,46,47,48,49,52,53,54];
+var indexworking = [2,3,4,5,6,9,10,11,12,13,14,15,16,17,18,19,20,22,23,25,26,27,28,30,31,32,33,34,35,36,38,39,40,42,43,44,45,46,47,48,49,50,53,54]
+var indexnotworking = [0,1,7,37,41,51,52,8,21,24,29];
 console.log(indexworking.length + indexnotworking.length)
 var Countrypoly = [];
 var i;
 for (i = 0; i < indexworking.length; i++) {
     Countrypoly.push({
     "type": "Feature",
-    "properties": {"produce": Produce[indexworking[i]], "country": Country[indexworking[i]]},
+    "properties": {"produce": Produce[indexworking[i]], "guacamole": Guacamole[indexworking[i]], "country": Country[indexworking[i]]},
     "geometry": {
         "type": "Polygon",
         "coordinates": Coordinates[indexworking[i]]}
@@ -80,16 +81,39 @@ console.log((Produce[indexnotworking[0]]).length)
 
 L.geoJSON(Countrypoly, {
   style: function(feature) {
-      switch (feature.properties.produce) {
-          case Produce[indexnotworking[0]]: return {color: "#ff0000"};
+      switch (feature.properties.guacamole) {
+          case 'Yes': return {color: "#ff0000"};
       }
   }
 }).addTo(map);
 
+  
 
+// var AvocadoCountries = L.layerGroup([Local_Guacamole, Semi_Local_Guacamole]);
+// L.geoJSON(Countrypoly, {
+//   style: function(feature) {
+//       switch (feature.properties.guacamole) {
+//           case "NO": return {color: "#ff0000"};
+//       }
+//   }
+// }).addTo(map);
+
+
+// var Local_Guacamole = L.geoJson(yourGeoJson, {
+//     filter: function(feature, layer) {
+//       return (feature.properties.status === "yes");
+//     }
+//   }).addTo(map);
+  
+// var Semi_Local_Guacamole= L.geoJson(yourGeoJson, {
+//     filter: function(feature, layer) {
+//       return (feature.properties.status === "no");
+//     }
+//   }).addTo(map);
+  
 
 marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-polygon.bindPopup("I am a polygon.");
+// polygon.bindPopup("I am a polygon." {feature.properties.produce});
 
 var popup = L.popup()
     .setLatLng([51.5, -0.09])

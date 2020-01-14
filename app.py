@@ -6,7 +6,7 @@ from flask import jsonify
 from flask_cors import CORS
 #Brandon's Variables 
 import GuacVis
-from GuacVis import CountryList, ProduceDict, GuacamoleData, CountCoord, CompositeDict, CoordDict
+from GuacVis import CompositeDict
 #Amy's Variables
 #import
 #from____import_____
@@ -22,7 +22,7 @@ CORS(app)
 def rendervis():
     return render_template("index.html", 
         #Brandon's Variables
-        CoordDict= CoordDict, GuacamoleData=GuacamoleData, CountCoord=CountCoord, CountryList=CountryList, ProduceDict=ProduceDict, CompositeDict=CompositeDict
+        CompositeDict=CompositeDict
         #Amy's Variables
 
         #Ky's Variables

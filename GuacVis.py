@@ -1,7 +1,8 @@
+import pandas as pd
 import psycopg2
 import json
 
-
+#Utilize psycopg2 inorder to call on postgres data base with SQL language
 con = psycopg2.connect("host='localhost' dbname='Avocado' user='postgres' password='postgres'")  
 cur = con.cursor()
 cur.execute("SELECT * FROM guacamolecountries")
@@ -15,39 +16,54 @@ for row in cur.fetchall():
 print (json.dumps(GuacamoleData, indent=2))
 GuacamoleData
 CountryList = []
-ProduceDict = []
-CoordDict = []
+ProduceList = []
 
+#Loop Through GuacamoleData
 for i in range(0,len(GuacamoleData)):
-    #List of Countries
+    #List of Countries & List of Produce 
     CountryList.append(GuacamoleData[i]['Country'])
-    #Dictionary of Countries' Produce
-    #To Process A String As if it Were a List Use eval()
-    ProduceDict.append({GuacamoleData[i]['Country']:eval(GuacamoleData[i]['Produce'])})
+    ProduceList.append(eval(GuacamoleData[i]['Produce']))
+
+#DF of Countries and Produce
+CountryProducedf = pd.DataFrame(list(zip(CountryList,ProduceList)), columns=['Country', 'Produce'])
 
 # Get Coordinates of Countries In GuacamoleData
-with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
-    CountCoord=eval(CountCoordjson.read())
+# with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
+# with open(r, 'r') as CountCoordjson:
+# CountCoord=eval(CountCoordjson.read())
+import requests
+r = requests.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+CountCoord = r.json()
+
 
 #Coordinate Dictionary, (List of Every COuntry in GEOJSON)
+CountNameList=[]
 CountCoordList=[]
 for c in CountCoord['features']:
-    CountCoordList.append(c['properties']['name'])
-CountCoordList
+    CountNameList.append(c['properties']['name'])
+    CountCoordList.append(c['geometry']['coordinates'])
 
-# A List of Countries Growing Avocados and their Coordinates
-CoordDict = []
-CoordDictCountries = []
-for i in range(len(CountCoordList)):
-    #Nested For Loop For List with Different Length
-    for x in range(len(CountryList)):
-        if CountCoordList[i] == CountryList[x]:
-            CoordDict.append({CountryList[x]:CountCoord['features'][i]['geometry']['coordinates']})
-            CoordDictCountries.append(CountryList[x])
+#Create Dictionary of the Geojson Countries and their Coordinates
+GeojsonDict = {CountNameList[i]: CountCoordList[i] for i in range(len(CountNameList))} 
 
-#Create a Composite Dict
+#Create List of Coordinates that Match the Countries in CountryList
+CoordList=[]
+for i in range(len(CountryProducedf)):
+    CoordList.append(GeojsonDict[CountryList[i]])
+
+#Find Countries that Grow All Ingredients for Guacamole
+GuacList = []
+for i in range(len(ProduceList)):
+    if len(ProduceList[i]) == 6:
+        GuacList.append('Yes')
+    else:
+        GuacList.append('No')
+    
+#Create Composite Dict With all List Information and Prep for JS
 CompositeDict=[]
-for i in range(0,len(CountryList)):
-    CompositeDict.append({'Country':CountryList[i],'Produce':ProduceDict[i][CountryList[i]], 'Coordinates':CoordDict[i][CoordDictCountries[i]]})
+for i in range(len(CountryList)):
+    CompositeDict.append({'Country':CountryList[i],'Produce':ProduceList[i], 'Coordinates':CoordList[i], 'Guacamole':GuacList[i]})
 CompositeDict = json.dumps(CompositeDict)
+
+
 
