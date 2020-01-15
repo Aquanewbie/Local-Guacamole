@@ -42,18 +42,18 @@ var map = L.map("map", {
   maxZoom: 5
 });
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// var Stamen_Watercolor = L.tileLayer.wms('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-// 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-// 	subdomains: 'abcd',
-// 	minZoom: 1,
-// 	maxZoom: 16,
-//     ext: 'jpg',
-//     opacity: 0.5
+// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 // }).addTo(map);
+
+var Stamen_Watercolor = L.tileLayer.wms('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	subdomains: 'abcd',
+	minZoom: 1,
+	maxZoom: 16,
+    ext: 'jpg',
+    opacity: 0.5
+}).addTo(map);
 
 // var CartoDB_DarkMatter = L.tileLayer.wms('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 // 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -144,7 +144,11 @@ Guacamolemap.addTo(map);
 //     var marker = L.marker(Coordinates[indexworking[i]][0][0][1], Coordinates[indexworking[i]][0][0][0]).addTo(map);
 //     marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup()};
 
-var marker = L.marker([ -34.603722, -58.381592]).addTo(map);
-marker.bindPopup("Argentina").openPopup();
+// var marker = L.marker([ -34.603722, -58.381592]).addTo(map);
+// marker.bindPopup("Argentina").openPopup();
 
-
+var CountryMarkerlatlon = [[-38.416097, -63.616672], [-25.274398, 133.775136], [-16.290154, -63.588653], [43.915886, 17.679076], [-14.235004, -51.92528], [7.369722, 12.354722], [6.611111, 20.939444], [-35.675147, -71.542969], [35.86166, 104.195397], [4.570868, -74.297333], [-0.228021, 15.827659], [9.748917, -83.753428], [7.539989, -5.54708], [21.521757, -77.781167], [35.126413, 33.429859], [-4.322447, 15.307045], [18.735693, -70.162651], [-1.831239, -78.183406], [13.794185, -88.89653], [-26.522503, 31.465866], [9.145, 40.489673], [46.227638, 2.213749], [3.933889, -53.125782], [7.946527, -1.023194], [39.074208, 21.824312], [15.783471, -90.230759], [4.860416, -58.93018], [18.971187, -72.285215], [15.199999, -86.241905], [-0.789275, 113.921327], [31.046051, 34.851612], [18.109581, -77.297508], [-0.023559, 37.906193], [33.854721, 35.862285], [-18.766947, 46.869107], [23.634501, -102.552784], [31.791702, -7.09262], [-40.900557, 174.885971], [8.537981, -80.782127], [-23.442503, -58.443832], [-9.189967, -75.015152], [12.879721, 121.774017], [39.399872, -8.224454], [18.220833, -66.590149], [-1.940278, 29.873888], [-33.918861, 18.4233], [40.416775, -3.70379], [6.927079, 79.861244], [-8.874217, 125.727539], [10.691803, -61.222503], [33.886917, 9.537499], [38.963745, 35.243322], [37.09024, -95.712891], [6.42375, -66.58973], [-19.015438, 29.154857]]
+for (i = 0; i < CountryMarkerlatlon.length; i++) {
+    var marker = L.marker(CountryMarkerlatlon[i]).addTo(map);
+    marker.bindPopup(Country[i] + " :  <br>" + Produce[i]).openPopup();};
+console.log(CountryMarkerlatlon);
