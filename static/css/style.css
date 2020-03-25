@@ -1,13 +1,13 @@
-#map { height: 180px; }
+#map { height: 50px; }
 
 .jumbobox {
-    min-height: 80px;
-    font-family: 'Lobster', cursive;
+    min-height: 50px;
+    font-family: 'Arial';
     font-weight: bold;
-    font-size: 72px;
+    font-size: 50px;
     text-align: center;
-    color: #bdb76b;
-    background: #2c4817;
+    color: #f5e615;
+    background: #72b440;
   }
   
   .nopadding {
@@ -19,21 +19,21 @@
      padding: 5px;
      margin: 5px;
      min-height: 80px;
-     font-family: 'ABeeZee', sans-serif;
+     font-family: 'Arial';
      font-size: 12px;
      text-align: justify;
-     color: #bdb76b;
-     background: #2c4817;
+     color: #f5e615;
+     background: #72b440;
   }
   
   .panel {
      padding: 5px;
      margin: 5x;
      min-height: 20px;
-     font-family: 'ABeeZee', sans-serif;
+     font-family: 'Arial', sans-serif;
      font-size: 18px;
      font-weight: bold;
      text-align: center;
-     color: #bdb76b;
-     background: #2b1700;
+     color:#72b440;
+     background:  #f5e615;
   }
