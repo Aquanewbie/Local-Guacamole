@@ -4,10 +4,10 @@ A Visualization Mapping the Production of Avocado and the additional ingredients
 
 ## Leaflet Map ##
 -Countries that grow Avocado, Lime, Cilantro, Tomatoes, Garlic, and Onions, can make their own "Local Guacamole" and are colored green. <br/>
-<img src="/Readme/Site.png" width =1200> </br>
 -Alternatively, countires that grow avocados but cannot make local guacamole are colored yellow. </br>
-<img src="/Readme/Mexico.png" width =700> </br>
 -When the markers are clicked, a popup shares the list of guacamole ingredients grown in that country. </br>
+<img src="/Readme/Site.png" width =1200> </br>
+<img src="/Readme/Mexico.png" width =700> </br>
 <img src="/Readme/Honduras.png" width =700> </br>
 
 ## Methods: ##
