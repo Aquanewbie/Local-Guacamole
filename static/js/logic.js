@@ -1,5 +1,3 @@
-document.cookie = 'cross-site-cookie=bar; SameSite=None';
-
 //Variables from Python set to Value in HTML
 const CompositeDict = document.getElementById('CompositeDict').getAttribute('value');
 
@@ -132,3 +130,26 @@ var CountryMarkerlatlon = [[-38.416097, -63.616672], [-25.274398, 133.775136], [
 for (i = 0; i < CountryMarkerlatlon.length; i++) {
     var marker = L.marker(CountryMarkerlatlon[i], {icon: AvoIcon}).addTo(map);
     marker.bindPopup(Country[i] + " :  <br>" + Produce[i]).openPopup();};
+
+    var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+var colors = ['#2c4817', '#ffd700']
+var labels = ['Produces Avocados + Local Guacamole', 'Produces Avocados']
+for (var i = 0; i < colors.length; i++) {
+    div.innerHTML +=
+        '<div class="color-box" style="background-color:' + colors[i] + '">' + "  " + '</br>'+'</div>';  labels[i]
+}
+
+return div;
+};
+
+legend.addTo(map);
+
+// '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +

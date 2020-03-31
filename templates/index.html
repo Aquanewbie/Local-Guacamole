@@ -23,40 +23,31 @@
 
 <body>
   <div class="container">
-    <div class="jumbotron nopadding">
 	  <div class="jumbobox rounded">
-		  <h5>Just Another Pit-iful</h5>
 		  <h7>Avocado Website</h7>
 	  </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 col-md-8">
+      <div>
         <div class="panel rounded">Local Guacamole</div>
+        <!-- Blank Divs to Through Which JS can pull python data from  -->
         <div id="CompositeDict" value='{{ CompositeDict }}'></div>
         <div id="AvoURL" value='{{ AvoURl }}'></div>
-        <!--
-			**graphhere***
-        -->
+        <!--**graphhere***-->
         <div id="map" style="height: 80vh;">
-        <!--
-			**graphhere***
-        -->
+        <!--**graphhere***-->
 	    </div>
 	  </div>
-	  <div class="col-sm-12 col-md-4">
-		<div class='panel rounded'>Brandon's Analysis</div>
+	  <div>
+		<div class='panel rounded'>Map Description</div>
 		<div class="box rounded">
-      <p1>The visualization to the left maps countries that reported commercial production of avocados to the United Nations in 2017.<br> 
+      <p1>The visualization above maps countries that reported commercial production of avocados to the United Nations in 2017.<br> 
         Addtionally, countries that also reported growing the follow: Tomatoes, Garlic, Onion, Cilantro, & Limes are noted in green.<br>
         Note that this visualization is not limited to the production of Hass Avocados, but include other varieties of avocados. 
        </p1>
 		</div> 
 	  </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-4">
-		
-
 <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>
 </html>

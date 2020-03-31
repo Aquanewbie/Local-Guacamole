@@ -1,9 +1,10 @@
 import pandas as pd
 import psycopg2
 import json
+import config
 
 #Utilize psycopg2 inorder to call on postgres data base with SQL language
-con = psycopg2.connect("host='localhost' dbname='Avocado' user='postgres' password='postgres'")  
+con = psycopg2.connect(f"host={config.host} dbname={config.dbname} user={config.user} password={config.password}")  
 cur = con.cursor()
 cur.execute("SELECT * FROM guacamolecountries")
 columns = ('Country', 'Produce')
@@ -28,9 +29,6 @@ for i in range(0,len(GuacamoleData)):
 CountryProducedf = pd.DataFrame(list(zip(CountryList,ProduceList)), columns=['Country', 'Produce'])
 
 # Get Coordinates of Countries In GuacamoleData
-# with open('Coord_json/countries.geo.json', 'r') as CountCoordjson:
-# with open(r, 'r') as CountCoordjson:
-# CountCoord=eval(CountCoordjson.read())
 import requests
 r = requests.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
 CountCoord = r.json()

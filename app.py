@@ -8,7 +8,7 @@ from flask_cors import CORS
 import GuacVis
 from GuacVis import CompositeDict
 
-
+#Initiate Flask App
 app = Flask(__name__)
 CORS(app)
 
